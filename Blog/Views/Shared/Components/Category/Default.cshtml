@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Category>
+@{
+}
+
+<div class=" position-sticky ">
+    @if (Model.Any())
+    {
+    <ul class="nav flex-column vh-100  text-center">
+        <li class="nav-item  text-center border-bottom">
+            <a class="nav-link link-light" asp-action="Index" asp-controller="Home">all categories</a>
+        </li>
+        
+        @foreach (var item in Model)
+        {
+            <li class="nav-item  text-center border-bottom">
+                <a class="nav-link link-light" asp-action="Index" asp-controller="Home" asp-route-categoryId="@item.Id" asp-route-page="1">@item.Title</a>
+            </li>
+
+        }
+    </ul>
+    }
+</div>
+

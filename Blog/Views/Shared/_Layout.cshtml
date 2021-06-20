@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content='@ViewData["desc"]' />
+    <meta name="keywords" content="blog,asp.net,mvc," />
+    <meta name="keywords" content='@ViewData["keyword"]' />
+    <title>@ViewData["Title"] - Blog</title>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/lib/trumbowy/css/trumbowyg.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <div class="bg-dark">
+
+           <div class="container">
+              <div class="d-flex justify-content-between border-bottom py-3">
+                <h1 class="text-white">afshar</h1>
+                <h1 class="text-white">blog</h1>
+              </div>
+           </div>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse text-sm-center" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Create">Create</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">category</a>
+                            </li>
+                        }
+                    </ul>
+                    <div class="col-lg-5 mx-auto">
+
+                    <form class="input-group"  asp-action="Index" asp-controller="Home">
+                        <input type="text" name="search" class="form-control form-control-sm border-dark" placeholder="search">
+                        <button class="btn btn-outline-dark btn-sm" type="submit">submit</button>
+                    </form>
+                    </div>
+                    <div class="">
+                        <ul class="navbar-nav">
+
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item p-2">
+                                    @User.Identity.Name
+                                </li>
+                                <li class="nav-item">
+                                    <a class="btn btn-outline-dark" asp-area="" asp-controller="Account" asp-action="Logout">logout</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="btn btn-outline-dark" asp-area="" asp-controller="Account" asp-action="Login">login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="btn btn-outline-dark" asp-area="" asp-controller="Account" asp-action="Register">register</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+
+        
+        <div class="p-4 p-md-5 mb-4 text-white  rounded bg-dark">
+            <div class="container">
+
+                <div class="col-md-6 px-0 text-center">
+                    <h1 class="display-4 fst-italic ">abolfazl afshar</h1>
+                    <p class="lead my-3">Backend dev</p>
+                    <p class="lead mb-0">C# dotnet python</p>
+                </div>
+            </div>
+        </div>
+</header>
+
+    <div class="container">
+        <main role="main" class="pb-2">
+            <div class="row">
+                <div class="col-lg-9 ">
+
+                    @RenderBody()
+                </div>
+                <div class="col-lg-3  bg-dark rounded-2">
+                    @await Component.InvokeAsync("Category")
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+    <footer class="bg-dark bg-dark ">
+        <div class="container p-3">
+            <div class="row ">
+                <div class="col-md-4 p-2">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link  text-white" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  text-white" href="#">contact</a>
+                        </li>
+                    </ul>
+                </div>   
+
+                <div class="col-md-4 ">
+                    <div class="d-flex justify-content-center my-2 p-3">
+
+
+                        <div class="  rounded-circle ">
+                            <a class="text-black-50" href="#!">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-3x"></i>
+                                    <i class="fab fa-twitter fa-stack-2x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </div> 
+
+                        <div class="  rounded-circle ">
+                            <a class="text-black-50" href="#!">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-3x"></i>
+                                    <i class="fab fa-github fa-stack-2x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </div> 
+                        
+                        <div class="  rounded-circle ">
+                    
+                            <a class="text-black-50" href="mailto:abolfazlafshar003@gmail.com">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-3x"></i>
+                                    <i class="far fa-envelope-open  fa-stack-2x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 ">
+                    <form class="input-group my-2 p-3" method="post" asp-action="newLetter" asp-controller="Home">
+                        <input type="email" class="form-control form-control-sm" placeholder="submit to newletter">
+                        <button class="btn btn-outline-light btn-sm" type="submit">submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/trumbowy/js/trumbowyg.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="false"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

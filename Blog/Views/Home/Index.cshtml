@@ -1,0 +1,77 @@
+﻿@model BlogIndexViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+    var posts = Model.Posts;
+    var PageSize = Model.PageSize;
+    var pageIndex = Model.PageIndex;
+    var NumOfPages = Model.NumberOfPages;
+    var search = Model.search;
+    
+    
+}
+
+<div class="row mb-3">
+    @if (posts.Count() > 0)
+    {
+        @foreach (var item in posts)
+        {
+            <div class="col-md-5 col-lg-4 my-2 ">
+                <div class="card bg-dark text-white position-relative" style="height:350px;">
+
+                    <img src="~/images/@item.ImageName" class="card-img-top"  style="height:150px;" />
+                    <div class="card-body pb-0 mb-0 text-center">
+
+                        <h5 class="card-title">@item.Title</h5>
+                        @{ string sub = item.Body.Length > 75 ? item.Body.Substring(0, 50) : item.Body;}
+                        <p class="card-text">@Html.Raw(sub)</p>
+
+                    <a href="/Home/Detail/@item.Id" class="btn btn-outline-light btn-sm mb-1"> see more... </a>
+                        @if (User.IsInRole("admin"))
+                    {
+
+                       <div class="position-absolute top-0 start-0 p-2"  >
+                           <div class="d-flex flex-column">
+                               <a href="/Home/Update/@item.Id" class="bg-info  text-white p-1 ">
+                                   <i class="fas fa-exchange-alt"></i>
+                               </a>
+                               <a href="/Home/Delete/@item.Id" class="bg-danger text-white p-1 ">
+                                   <i class="fas fa-trash"></i>
+                               </a>
+                           </div>
+                         
+                       </div>
+                    }
+                    </div>
+                    @*<h3>@item.Categroy.Title</h3>*@
+                </div>
+            </div>
+        }
+    }
+</div>
+
+<div class="row my-5">
+    <div class="col-sm-6 col-md-4 ">
+
+        <nav aria-label="Page navigation mx-auto pagination-sm">
+            <ul class="pagination">
+                <li class="page-item @(pageIndex==1 ?"disabled" : " ")">
+                    <a class="page-link" href="/Home/Index?page=@( pageIndex-1)&size=@PageSize&search=@search" aria-label="Previous">
+                        <span aria-hidden="true" class="link-dark">&laquo;</span>
+                    </a>
+                </li>
+                @for (int i = 1; i <= NumOfPages; i++)
+                {
+                    <li class="page-item"><a class=" @(i==pageIndex ? "btn btn-dark":"nav-link link-dark")  " href="/Home/Index?page=@i&size=@PageSize&search=@search">@i</a></li>
+
+                }
+                <li class="page-item  @(pageIndex+1 > NumOfPages ?"disabled" : "")">
+                    <a class="page-link" href="/Home/Index?page=@( pageIndex+1)&size=@PageSize&search=@search" aria-label="Next"  >
+                        <span aria-hidden="true" class="link-dark">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+</div>

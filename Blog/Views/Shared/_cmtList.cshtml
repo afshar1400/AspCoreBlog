@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Blog.Models.Comments.MainComment>
+
+@if(Model!=null)
+            {
+
+
+@foreach (var item in Model)
+{
+
+    <div class="border-left border-info  my-3 p-3 bg-dark text-white">
+        <div class="row">
+            <div class="col-10">
+                <h5>@item.Title </h5>
+                <p>@Html.Raw(item.Body)</p>
+              
+            </div>
+            @if (User.IsInRole("admin")) 
+            { 
+        <div class="col-2">
+            <a class="btn btn-danger" href="/Comment/Delete/@item.Id">
+
+                <i class="fas fa-trash"></i>
+            </a>
+        </div>
+            }
+            
+        </div>
+
+        
+        
+    </div>
+
+}
+
+
+}
